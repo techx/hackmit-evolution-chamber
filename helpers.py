@@ -37,9 +37,13 @@ def modify_scores(winner_id, loser_id):
 
     Database.update_elo_for_id(winner_id, newWinnerScore)
     Database.update_elo_for_id(loser_id, newLoserScore)
+    # TODO need to incrememnt the number of comparisons in the database somewhere. I don't think it belongs in here.
 
+''' 
+Returns bool whether it is the end of a generation
+'''
 def end_of_generation():
-    raise NotImplementedError()
+    return Database.num_comparisons() >= Constants.COMPARISONS_PER_GENERATION
 
 def save_best_to_history():
     raise NotImplementedError()
