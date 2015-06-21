@@ -31,8 +31,6 @@ def domains():
     }
 
 def mutate(parameters):
-    if random.random() < 0.002:
-        return genetic.random_individual_parameters()
     new = dict(**parameters)
     if random.random() < 0.02:
         new['palette_1'] = random.choice(xrange(256*256*256))
@@ -46,14 +44,6 @@ def mutate(parameters):
         new['palette_5'] = random.choice(xrange(256*256*256))
     if random.random() < 0.01:
         new['colors_limit'] = random.choice([3,4,5])
-    if random.random() < 0.1:
-        new['h_left_above'] = not new['h_left_above']
-    if random.random() < 0.1:
-        new['h_right_above'] = not new['h_right_above']
-    if random.random() < 0.1:
-        new['c_top_above'] = not new['c_top_above']
-    if random.random() < 0.1:
-        new['k_top_above'] = not new['k_top_above']
     return new
 
 def combine(parent_a, parent_b):
@@ -69,16 +59,11 @@ def combine(parent_a, parent_b):
         g = int(((b1 * b1 + b2 * b2)/2)**0.5)
         b = int(((g1 * g1 + g2 * g2)/2)**0.5)
         return r * 256**2 + g * 256 + b
-    if random.random() < 0.2:
-        new['palette_1'] = average_rgb(parent_a['palette_1'], parent_b['palette_1'])
-    if random.random() < 0.2:
-        new['palette_2'] = average_rgb(parent_a['palette_2'], parent_b['palette_2'])
-    if random.random() < 0.2:
-        new['palette_3'] = average_rgb(parent_a['palette_3'], parent_b['palette_3'])
-    if random.random() < 0.2:
-        new['palette_4'] = average_rgb(parent_a['palette_4'], parent_b['palette_4'])
-    if random.random() < 0.2:
-        new['palette_5'] = average_rgb(parent_a['palette_5'], parent_b['palette_5'])
+    new['palette_1'] = average_rgb(parent_a['palette_1'], parent_b['palette_1'])
+    new['palette_2'] = average_rgb(parent_a['palette_2'], parent_b['palette_2'])
+    new['palette_3'] = average_rgb(parent_a['palette_3'], parent_b['palette_3'])
+    new['palette_4'] = average_rgb(parent_a['palette_4'], parent_b['palette_4'])
+    new['palette_5'] = average_rgb(parent_a['palette_5'], parent_b['palette_5'])
     return new
 
 # returns Markup object
@@ -141,6 +126,5 @@ def generate(parameters):
       <rect height="100%" width="100%" fill="#ecf0f1"/>
       {}{}{}{}
     </svg>
-    '''.format(letter_h, letter_a, letter_c, letter_k)
-    logo = logo.format(opacity=opacity)
+    '''.format(letter_h, letter_a, letter_c, letter_k, opacity=opacity)
     return Markup(logo)
