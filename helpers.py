@@ -43,27 +43,29 @@ def end_of_generation():
     '''
     Returns bool whether it is the end of a generation
     '''
-    return Database.num_comparisons() >= Constants.COMPARISONS_PER_GENERATION
+    return Database.num_comparisons() == Constants.COMPARISONS_PER_GENERATION
 
 def save_best_to_history():
     sorted_individuals = Database.get_all_individuals_sorted()
 
-    Databse.add_historical_individual(sorted_individuals[0])
+    Database.add_historical_individual(sorted_individuals[0])
 
 def kill_unfit():
-    # Delete individual for id for all unfit
-
-    raise NotImplementedError()
+    sorted_individuals = Database.get_all_individuals_sorted()
+    unfit = sorted_individuals[-Constants.KILL_SIZE:]
+    Database.delete_individuals(unfit)
 
 def breed():
-    sorted_individuals = Database.get_all_individuals_sorted()
-    for i in range(constants.POPULATION_SIZE - len(sorted_individuals)):
-        genetic.combine_and_mutate(random.choice(sorted_individuals), random.choice(sorted_individuals))
-
-    raise NotImplementedError()
+    alive_number = Constants.POPULATION_SIZE - Constants.KILL_SIZE
+    sorted_individuals = Database.get_all_individuals_sorted()[:alive_number]
+    for i in range(alive_number):
+        pick1, pick2 = random.sample(sorted_individuals, 2)
+        parameters = genetic.combine_and_mutate(pick1, pick2)
+        Database.add_individual_to_current_generation(parameters)
 
 def reset_scores():
-    raise NotImplementedError()
+    for individual in Database.get_all_individuals_sorted():
+        Database.update_elo_for_id(individual["id"],1000.0)
 
 def end_generation():
     if not end_of_generation():
