@@ -45,8 +45,8 @@ def history():
     # Table of generation numbers, params, and elo scores
     # Show images in v2.
 
-    # history_of_gens = history()
-    history_of_gens = [{'gen': 0, 'parameters': ['a','b'], 'elo': 1000}, {'gen': 1, 'parameters': ['a','b'], 'elo': 999}]
+    history_of_gens = get_history()
+    # history_of_gens = [{'gen': 0, 'parameters': ['a','b'], 'elo': 1000}, {'gen': 1, 'parameters': ['a','b'], 'elo': 999}]
 
     return render_template('history.html', history_of_gens=history_of_gens)
 

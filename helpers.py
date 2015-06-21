@@ -76,5 +76,5 @@ def end_generation():
     breed()
     reset_scores()
 
-def history():
+def get_history():
     return Database.get_historical_individuals()
