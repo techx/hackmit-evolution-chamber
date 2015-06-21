@@ -34,11 +34,8 @@ def get_random_individuals(num=2):
         returnList.append((individual["id"], individual["parameters"]))
     return returnList
 
-
-def render_parameters(parameters):
-    # note that an individual != 'parameters'
+def render_individuals(parameters):
     return species.generate(parameters)
-
 
 def modify_scores(winner_id, loser_id):
     winnerIndividual = Database.get_individual_for_id(winner_id)
