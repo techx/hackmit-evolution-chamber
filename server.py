@@ -11,14 +11,16 @@ def index():
     # Check table, populate if empty
     # Show two random individuals in the current gen
     populate_current_generation_if_empty()
-    a, b = Database.get_random_individuals(2)
+    a, b, c, d = Database.get_random_individuals(4)
     ar = render_individual(a['parameters'])
     br = render_individual(b['parameters'])
-    aid, bid = a['id'], b['id']
+    cr = render_individual(c['parameters'])
+    dr = render_individual(d['parameters'])
+    aid, bid, cid, did = a['id'], b['id'], c['id'], d['id']
     prg = str(float(Database.num_comparisons()) / Constants.COMPARISONS_PER_GENERATION * 100)
     gen = len(Database.get_historical_individuals())
 
-    return render_template('index.html', left_id=aid, left=ar, right_id=bid, right=br, progress=prg, generation=gen)
+    return render_template('indexgrid.html', left_id=aid, left=ar, right_id=bid, right=br, top_id=cid, top=cr, bottom_id=did, bottom=dr, progress=prg, generation=gen)
 
 @app.route('/', methods=['POST'])
 def decision():
@@ -33,9 +35,11 @@ def decision():
         return 'ignored'
     winner_id = request.form['winner'] # string
     loser_id = request.form['loser'] # string
+    loser2_id = request.form['loser2'] # string
+    loser3_id = request.form['loser3'] # string
 
-    modify_scores(winner_id, loser_id)
-    save_decision(winner_id, loser_id)
+    modify_scores(winner_id, loser_id, loser2_id, loser3_id)
+    save_decision(winner_id, loser_id, loser2_id, loser3_id)
     end_generation()
 
     return 'ok'

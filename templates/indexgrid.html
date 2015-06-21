@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>THIS OR THAT?</title>
+  <style>
+  	body {
+  		font-family: "Lato";
+  		font-size: 14pt;
+  	}
+
+  	h1 {
+  		font-family: "Montserrat";
+  		font-size: 36pt;
+  		text-transform: uppercase;
+  	}
+
+    .container {
+      width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+  	#left {
+  		float: left;
+  		text-align: right;
+
+  	}
+
+  	#right {
+  		float: right;
+  		text-align: left;
+  	}
+
+    #top {
+      float: left;
+      text-align: right;
+
+    }
+
+    #bottom {
+      float: right;
+      text-align: left;
+    }
+
+
+  </style>
+  <link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=Lato:300" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <script>
+    function post(loser, loser2, loser3, winner) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("POST", "/", true);
+        xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState === XMLHttpRequest.DONE) {
+                window.location = '/';
+            }
+        };
+        xmlhttp.send('generation={{ generation }}&loser=' + loser + '&loser2=' + loser2 + '&loser3=' + loser3 + '&winner=' + winner);
+    }
+    function winLeft() {
+        post('{{ right_id }}', '{{ top_id }}', '{{ bottom_id }}', '{{ left_id }}');
+    }
+    function winRight() {
+        post('{{ left_id }}', '{{ top_id }}', '{{ bottom_id }}', '{{ right_id }}');
+    }
+    function winTop() {
+        post('{{ left_id }}', '{{ right_id }}', '{{ bottom_id }}', '{{ top_id }}');
+    }
+    function winBottom() {
+        post('{{ left_id }}', '{{ top_id }}', '{{ right_id }}', '{{ bottom_id }}');
+    }
+    </script>
+    <div style="width: 100%; text-align: center;">
+    	<h1>Evolution Chamber</h1>
+        <div class="container">
+          <div id = "left" onclick="winLeft();">
+            {{ left }}
+          </div>
+          <div id = "right" onclick="winRight();">
+            {{ right }}
+          </div>
+        </div>
+        <div style="clear:both;"></div>
+        <div class="container">
+
+          <div id = "top" onclick="winTop();">
+            {{ top }}
+          </div>
+          <div id = "bottom" onclick="winBottom();">
+            {{ bottom }}
+          </div>
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+    <p style="text-transform: italic; text-align: center; font-size: 12pt;">Tap on the one you like more. Left and right arrow keys work too.</p>
+    <p style="text-align: center;"><b>Generation:</b> {{ generation }} <br> - <br> <b>Progress:</b> {{ progress }} %</p>
+    <script>
+    var LEFT = 37;
+    var RIGHT = 39;
+    var Q = 81;
+    var W = 87;
+    var A = 65;
+    var S = 83;
+    document.onkeydown = function(e) {
+        e = e || window.event;
+        var charCode = (typeof e.which == "number") ? e.which : e.keyCode;
+        if (charCode === LEFT) {
+            winLeft();
+        } else if (charCode === RIGHT) {
+            winRight();
+        } else if (charCode === Q) {
+          winLeft();
+        } else if (charCode === W) {
+          winRight();
+        } else if (charCode === A) {
+          winTop();
+        } else if (charCode === S) {
+          winBottom();
+        }
+    };
+    </script>
+</body>
+</html>

@@ -29,15 +29,21 @@ def populate_current_generation_if_empty():
 def render_individual(parameters):
     return species.generate(parameters)
 
-def modify_scores(winner_id, loser_id):
+def modify_scores(winner_id, loser_id, loser2_id, loser3_id):
     winnerIndividual = Database.get_individual_for_id(winner_id)
-    loserIndividual = Database.get_individual_for_id(loser_id)
 
-    (newWinnerScore, newLoserScore) = elo.get_elos_for_result(winnerIndividual["elo"], loserIndividual["elo"], elo.ResultType.WIN)
+    def updateForLoserId(loser_id):
+        loserIndividual = Database.get_individual_for_id(loser_id)
 
-    Database.update_elo_for_id(winner_id, newWinnerScore)
-    Database.update_elo_for_id(loser_id, newLoserScore)
-    Database.incr_comparisons()
+        (newWinnerScore, newLoserScore) = elo.get_elos_for_result(winnerIndividual["elo"], loserIndividual["elo"], elo.ResultType.WIN)
+
+        Database.update_elo_for_id(winner_id, newWinnerScore)
+        Database.update_elo_for_id(loser_id, newLoserScore)
+        Database.incr_comparisons()
+
+    updateForLoserId(loser_id)
+    updateForLoserId(loser2_id)
+    updateForLoserId(loser3_id)
 
 def end_of_generation():
     '''
@@ -79,7 +85,11 @@ def end_generation():
 def get_history():
     return Database.get_historical_individuals()
 
-def save_decision(winner_id, loser_id):
+def save_decision(winner_id, loser_id, loser2_id, loser3_id):
     winner = Database.get_individual_for_id(winner_id)
     loser = Database.get_individual_for_id(loser_id)
+    loser2 = Database.get_individual_for_id(loser_id)
+    loser3 = Database.get_individual_for_id(loser_id)
     Database.record_decision(winner, loser)
+    Database.record_decision(winner, loser2)
+    Database.record_decision(winner, loser3)
