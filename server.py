@@ -33,8 +33,6 @@ def decision():
         return 'ignored'
     winner = request.form['winner'] # string
     loser = request.form['loser'] # string
-    winner_id = 1 # TODO
-    loser_id = 2
 
     modify_scores(winner_id, loser_id)
     end_generation()
@@ -47,7 +45,8 @@ def history():
     # Table of generation numbers, params, and elo scores
     # Show images in v2.
 
-    history_of_gens = history()
+    # history_of_gens = history()
+    history_of_gens = [{'gen': 0, 'parameters': ['a','b'], 'elo': 1000}, {'gen': 1, 'parameters': ['a','b'], 'elo': 999}]
 
     return render_template('history.html', history_of_gens=history_of_gens)
 

@@ -14,11 +14,11 @@
   		<th>Parameters</th>
   		<th>Scores</th>
   	</tr>
-  	{% for generation in {{ history_of_gens }} %}
+  	{% for gen, parameters, elo in history_of_gens %}
   	<tr>
-  		<td> {{ generation[gen] }} </td>
-  		<td> {{ generation[parameters] }} </td>
-  		<td> {{ generation[elo] }} </td>
+  		<td> {{ gen }} </td>
+  		<td> {{ parameters }} </td>
+  		<td> {{ elo }} </td>
   	</tr>
   	{% endfor %}
 </body>
