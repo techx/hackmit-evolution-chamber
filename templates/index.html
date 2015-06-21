@@ -31,6 +31,12 @@
   		text-align: left;
   	}
 
+    a {
+        text-decoration: none;
+        font-size: 16pt;
+        color: {{ magic_color }};
+    }
+
   </style>
   <link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
   <link href="//fonts.googleapis.com/css?family=Lato:300" rel="stylesheet" type="text/css">
@@ -69,6 +75,7 @@
     <div style="clear:both;"></div>
     <p style="text-transform: italic; text-align: center; font-size: 12pt;">Tap on the one you like more. Left and right arrow keys work too.</p>
     <p style="text-align: center;"><b>Generation:</b> {{ generation }} <br> - <br> <b>Progress:</b> {{ progress }} %</p>
+    <a href="/history"><p style="text-transform: italic; text-align: center; font-size: 12pt;">See what you've evolved!</p></a>
     <script>
     var LEFT = 37;
     var RIGHT = 39;
