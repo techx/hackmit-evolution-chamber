@@ -1,5 +1,10 @@
-# battle-of-the-hacks-2015
-a16z Battle of the Hacks
+# evolution-chamber
+A general evolution app made for a16z Battle of the Hacks by:
+
+- Anish Athalye
+- Ben Chan
+- Jack Serrino
+- Jennifer Zhang
 
 `pip install -r requirements.txt`
 
