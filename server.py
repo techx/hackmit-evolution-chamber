@@ -1,6 +1,6 @@
 from flask import Flask, render_template, Markup
 from constants import Constants
-from database import get_db
+from database import Database
 from stats import Stats
 
 app = Flask(Constants.APP_NAME)
@@ -9,7 +9,6 @@ app = Flask(Constants.APP_NAME)
 def index():
     # Check table, populate if empty
     # Show two random individuals in the current gen
-
     return render_template('index.html')
 
 @app.route('/', methods=['POST'])
