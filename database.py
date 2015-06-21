@@ -27,7 +27,7 @@ class Database:
     @staticmethod
     def incr_comparisons():
         cursor = get_db().cursor()
-        cursor.execute('UPDATE stats SET num_comparisons = %d WHERE 1 == 1' % (Stats.num() + 1))
+        cursor.execute('UPDATE stats SET num_comparisons = %d WHERE 1 == 1' % (Database.num_comparisons() + 1))
         get_db().commit()
 
     @staticmethod
