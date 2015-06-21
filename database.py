@@ -90,3 +90,18 @@ class Database:
         cursor = get_db().cursor()
         cursor.execute('DELETE FROM current WHERE id = ?', (idd,))
         get_db().commit()
+
+    @staticmethod
+    def get_historical_individuals():
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute('SELECT gen, parameters, elo FROM historical ORDER BY gen')
+        return [serialize_result_to_individual(res,"gen") for res in cursor.fetchall()]
+
+    @staticmethod
+    def add_historical_individual(individial):
+        string = json.dumps(individial['parameters'])
+        elo = individial['elo']
+        cursor = get_db().cursor()
+        cursor.execute('INSERT INTO historical (parameters, elo) VALUES (?, ?)', (string,elo))
+        get_db().commit()

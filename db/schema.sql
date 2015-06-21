@@ -11,7 +11,7 @@ CREATE TABLE stats
 num_comparisons INTEGER NOT NULL
 );
 
-CREATE TABLE historial
+CREATE TABLE historical
 (
 gen INTEGER PRIMARY KEY,
 parameters TEXT NOT NULL,
