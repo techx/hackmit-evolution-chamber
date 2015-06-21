@@ -7,12 +7,39 @@
   </style>
 </head>
 <body>
-<h1>left</h1>
-{{ left }}
-<h1>right</h1>
-{{ right }}
-<form action="/">
-    <input type="submit" value="Submit">
-</form>
+    <div style="width: 100%;">
+        <div style="float:left; width: 50%;">
+            {{ left }}
+        </div>
+        <div style="float:right;">
+            {{ right }}
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+    <p style="text-align: center;">Generation: {{ generation }} | Progress: {{ progress }} %</p>
+    <script>
+    var LEFT = 37;
+    var RIGHT = 39;
+    function post(loser, winner) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("POST", "/", true);
+        xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState === XMLHttpRequest.DONE) {
+                window.location = '/';
+            }
+        };
+        xmlhttp.send('generation={{ generation }}&loser=' + loser + '&winner=' + winner);
+    }
+    document.onkeydown = function(e) {
+        e = e || window.event;
+        var charCode = (typeof e.which == "number") ? e.which : e.keyCode;
+        if (charCode === LEFT) {
+            post('{{ right_id }}', '{{ left_id }}');
+        } else if (charCode === RIGHT) {
+            post('{{ left_id }}', '{{ right_id }}');
+        }
+    };
+    </script>
 </body>
 </html>

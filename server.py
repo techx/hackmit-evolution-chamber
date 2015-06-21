@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Markup
+from flask import Flask, render_template, Markup, request
 from constants import Constants
 from database import Database
 from helpers import *
@@ -15,16 +15,24 @@ def index():
     ar = render_individual(a['parameters'])
     br = render_individual(b['parameters'])
     aid, bid = a['id'], b['id']
+    prg = str(float(Database.num_comparisons()) / Constants.COMPARISONS_PER_GENERATION)
+    gen = len(Database.get_historical_individuals())
 
-    return render_template('index.html', left_id=aid, left=ar, right_id=bid, right=br)
+    return render_template('index.html', left_id=aid, left=ar, right_id=bid, right=br, progress=prg, generation=gen)
 
 @app.route('/', methods=['POST'])
 def decision():
-  # Get id of winner and loser
-  # Compute elo score change of winner and loser
-  # Modify scores in db
-  # If we are at the end of current gen, do all the evolution stuff
-  # Redirect back to the homepage with 2 new individuals
+    # Get id of winner and loser
+    # Compute elo score change of winner and loser
+    # Modify scores in db
+    # If we are at the end of current gen, do all the evolution stuff
+    # Redirect back to the homepage with 2 new individuals
+    form = request.form
+    generation = int(request.form['generation'])
+    if generation != len(Database.get_historical_individuals()):
+        return
+    winner = request.form['winner'] # string
+    loser = request.form['loser'] # string
     winner_id = 1 # TODO
     loser_id = 2
 
