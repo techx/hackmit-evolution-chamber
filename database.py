@@ -106,3 +106,10 @@ class Database:
         cursor = get_db().cursor()
         cursor.execute('INSERT INTO historical (parameters, elo) VALUES (?, ?)', (string,elo))
         get_db().commit()
+
+    @staticmethod
+    def record_decision(winner, loser):
+        db = get_db()
+        cursor = db.cursor()
+        data = (winner["id"],json.dumps(winner["parameters"]),loser["id"],json.dumps(loser["parameters"]))
+        cursor.execute('INSERT INTO decisions (winner_id, winner_parameters, loser_id, loser_parameters) VALUES (?, ?, ?, ?)', data)

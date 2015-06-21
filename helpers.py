@@ -78,3 +78,8 @@ def end_generation():
 
 def get_history():
     return Database.get_historical_individuals()
+
+def save_decision(winner_id, loser_id):
+    winner = Database.get_individual_for_id(winner_id)
+    loser = Database.get_individual_for_id(loser_id)
+    Database.record_decision(winner, loser)

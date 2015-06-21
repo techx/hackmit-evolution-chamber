@@ -35,6 +35,7 @@ def decision():
     loser_id = request.form['loser'] # string
 
     modify_scores(winner_id, loser_id)
+    save_decision(winner_id, loser_id)
     end_generation()
 
     return 'ok'
