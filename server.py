@@ -1,7 +1,6 @@
 from flask import Flask, render_template, Markup
 from constants import Constants
 from database import Database
-from stats import Stats
 from helpers import *
 from elo import *
 

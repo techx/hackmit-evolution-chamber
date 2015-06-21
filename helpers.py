@@ -37,7 +37,7 @@ def modify_scores(winner_id, loser_id):
 
     Database.update_elo_for_id(winner_id, newWinnerScore)
     Database.update_elo_for_id(loser_id, newLoserScore)
-    # TODO need to incrememnt the number of comparisons in the database somewhere. I don't think it belongs in here.
+    Database.incr_comparisons()
 
 def end_of_generation():
     '''
@@ -47,6 +47,7 @@ def end_of_generation():
 
 def save_best_to_history():
     raise NotImplementedError()
+    
 
 def kill_unfit():
     raise NotImplementedError()
