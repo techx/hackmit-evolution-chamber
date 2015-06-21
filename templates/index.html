@@ -36,23 +36,7 @@
   <link href="//fonts.googleapis.com/css?family=Lato:300" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <div style="width: 100%; text-align: center;">
-    	<h1>Evolution Chamber</h1>
-        <div class="container">
-          <div id = "left">
-              {{ left }}
-          </div>
-          <div id = "right">
-              {{ right }}
-          </div>
-        </div>
-    </div>
-    <div style="clear:both;"></div>
-    <p style="text-transform: italic; text-align: center; font-size: 12pt;">Use your left and right arrow keys to select the HackMIT logo you like best!</p>
-    <p style="text-align: center;"><b>Generation:</b> {{ generation }} <br> - <br> <b>Progress:</b> {{ progress }} %</p>
     <script>
-    var LEFT = 37;
-    var RIGHT = 39;
     function post(loser, winner) {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.open("POST", "/", true);
@@ -64,13 +48,37 @@
         };
         xmlhttp.send('generation={{ generation }}&loser=' + loser + '&winner=' + winner);
     }
+    function winLeft() {
+        post('{{ right_id }}', '{{ left_id }}');
+    }
+    function winRight() {
+        post('{{ left_id }}', '{{ right_id }}');
+    }
+    </script>
+    <div style="width: 100%; text-align: center;">
+    	<h1>Evolution Chamber</h1>
+        <div class="container">
+          <div id = "left" onclick="winLeft();">
+            {{ left }}
+          </div>
+          <div id = "right" onclick="winRight();">
+            {{ right }}
+          </div>
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+    <p style="text-transform: italic; text-align: center; font-size: 12pt;">Tap on the one you like more. Left and right arrow keys work too.</p>
+    <p style="text-align: center;"><b>Generation:</b> {{ generation }} <br> - <br> <b>Progress:</b> {{ progress }} %</p>
+    <script>
+    var LEFT = 37;
+    var RIGHT = 39;
     document.onkeydown = function(e) {
         e = e || window.event;
         var charCode = (typeof e.which == "number") ? e.which : e.keyCode;
         if (charCode === LEFT) {
-            post('{{ right_id }}', '{{ left_id }}');
+            winLeft();
         } else if (charCode === RIGHT) {
-            post('{{ left_id }}', '{{ right_id }}');
+            winRight();
         }
     };
     </script>
