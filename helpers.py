@@ -46,8 +46,9 @@ def end_of_generation():
     return Database.num_comparisons() >= Constants.COMPARISONS_PER_GENERATION
 
 def save_best_to_history():
-    raise NotImplementedError()
-    
+    sorted_individuals = Database.get_all_individuals_sorted()
+
+    Databse.add_historical_individual(sorted_individuals[0])
 
 def kill_unfit():
     raise NotImplementedError()
