@@ -2,7 +2,16 @@ import species as species
 import genetic
 from constants import *
 from database import Database
-import json
+import elo as elo
+
+
+'''
+Individual, as retrieved from the database
+A dictionary with fields:
+"elo"
+"id"
+"parameters" : dictionary
+'''
 
 def populate_current_generation_if_empty():
     if not Database.current_generation_is_empty():
@@ -10,18 +19,24 @@ def populate_current_generation_if_empty():
     print "Adding new random individuals to generation."
     for i in xrange(0, Constants.POPULATION_SIZE):
         newIndividual = species.random_individual()
-        newIndividualString = json.dumps(newIndividual)
-        Database.add_individual_to_current_generation(newIndividualString)
+        Database.add_individual_to_current_generation(newIndividual)
 
 def get_random_parameterss(num=2):
     # returns list of tuples (id, parameters)
     raise NotImplementedError()
 
 def render_parameters(parameters):
+    # note that an individual != 'parameters'
     return species.generate(parameters)
 
 def modify_scores(winner_id, loser_id):
-    raise NotImplementedError()
+    winnerIndividual = Database.get_individual_for_id(winner_id)
+    loserIndividual = Database.get_individual_for_id(loser_id)
+
+    (newWinnerScore, newLoserScore) = elo.get_elos_for_result(winnerIndividual["elo"], loserIndividual["elo"], elo.ResultType.WIN)
+
+    Database.update_elo_for_id(winner_id, newWinnerScore)
+    Database.update_elo_for_id(loser_id, newLoserScore)
 
 def end_of_generation():
     raise NotImplementedError()
