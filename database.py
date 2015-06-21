@@ -86,9 +86,10 @@ class Database:
         return [serialize_result_to_individual(res) for res in cursor.fetchall()]
 
     @staticmethod
-    def delete_individual_for_id(idd):
+    def delete_individuals(individuals):
         cursor = get_db().cursor()
-        cursor.execute('DELETE FROM current WHERE id = ?', (idd,))
+        id_list = ", ".join(map(lambda x: x["id"], individuals))
+        cursor.execute('DELETE FROM current WHERE id IN (%s)' % id_list)
         get_db().commit()
 
     @staticmethod
@@ -99,9 +100,9 @@ class Database:
         return [serialize_result_to_individual(res,"gen") for res in cursor.fetchall()]
 
     @staticmethod
-    def add_historical_individual(individial):
-        string = json.dumps(individial['parameters'])
-        elo = individial['elo']
+    def add_historical_individual(individual):
+        string = json.dumps(individual['parameters'])
+        elo = individual['elo']
         cursor = get_db().cursor()
         cursor.execute('INSERT INTO historical (parameters, elo) VALUES (?, ?)', (string,elo))
         get_db().commit()
