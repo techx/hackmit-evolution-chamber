@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, Markup
 from constants import Constants
 from database import get_db
 
@@ -18,7 +18,7 @@ def decision():
 	# Modify scores in db
 	# If we are at the end of current gen, do all the evolution stuff
 	# Redirect back to the homepage with 2 new individuals
-
+        pass
 
 @app.route("/history")
 def history():
@@ -26,10 +26,6 @@ def history():
 	# Show images in v2.
 
 	return render_template('history.html')
-
-@app.route("/<text>")
-def index(text=Constants.generation_length):
-    return render_template('index.html', text=text)
 
 if __name__ == "__main__":
     app.run()
