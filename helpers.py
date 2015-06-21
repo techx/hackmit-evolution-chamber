@@ -43,7 +43,7 @@ def end_of_generation():
     '''
     Returns bool whether it is the end of a generation
     '''
-    return Database.num_comparisons() == Constants.COMPARISONS_PER_GENERATION
+    return Database.num_comparisons() >= Constants.COMPARISONS_PER_GENERATION
 
 def save_best_to_history():
     sorted_individuals = Database.get_all_individuals_sorted()
@@ -70,6 +70,7 @@ def reset_scores():
 def end_generation():
     if not end_of_generation():
         return
+    Database.reset_comparisons()
     save_best_to_history()
     kill_unfit()
     breed()
