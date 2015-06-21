@@ -1,9 +1,10 @@
 from flask import Flask, render_template
+from constants import Constants
 app = Flask(__name__)
 
 @app.route("/")
 @app.route("/<text>")
-def index(text="Hello World!"):
+def index(text=Constants.generation_length):
     return render_template('index.html', text=text)
 
 if __name__ == "__main__":
