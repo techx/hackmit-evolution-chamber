@@ -8,5 +8,18 @@
 </head>
 <body>
   History
+  <table id="generations-table">
+  	<tr>
+  		<th>Generation</th>
+  		<th>Parameters</th>
+  		<th>Scores</th>
+  	</tr>
+  	{% for generation in {{ history_of_gens }} %}
+  	<tr>
+  		<td> {{ generation[gen] }} </td>
+  		<td> {{ generation[parameters] }} </td>
+  		<td> {{ generation[elo] }} </td>
+  	</tr>
+  	{% endfor %}
 </body>
 </html>y

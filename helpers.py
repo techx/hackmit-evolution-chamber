@@ -6,6 +6,11 @@ import elo as elo
 
 
 '''
+A series of...
+functions that do who know what
+'''
+
+'''
 Individual, as retrieved from the database
 A dictionary with fields:
 "elo"
@@ -21,12 +26,15 @@ def populate_current_generation_if_empty():
         newIndividual = species.random_individual()
         Database.add_individual_to_current_generation(newIndividual)
 
-def get_random_parameterss(num=2):
+def get_random_individuals(num=2):
     # returns list of tuples (id, parameters)
-    raise NotImplementedError()
+    randomIndividuals = Database.get_random_individuals(num)
+    returnList = []
+    for individual in randomIndividuals:
+        returnList.append((individual["id"], individual["parameters"]))
+    return returnList
 
-def render_parameters(parameters):
-    # note that an individual != 'parameters'
+def render_individuals(parameters):
     return species.generate(parameters)
 
 def modify_scores(winner_id, loser_id):
@@ -39,10 +47,10 @@ def modify_scores(winner_id, loser_id):
     Database.update_elo_for_id(loser_id, newLoserScore)
     # TODO need to incrememnt the number of comparisons in the database somewhere. I don't think it belongs in here.
 
-''' 
-Returns bool whether it is the end of a generation
-'''
 def end_of_generation():
+    ''' 
+    Returns bool whether it is the end of a generation
+    '''
     return Database.num_comparisons() >= Constants.COMPARISONS_PER_GENERATION
 
 def save_best_to_history():
