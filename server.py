@@ -1,5 +1,7 @@
 from flask import Flask, render_template
 from constants import Constants
+from database import get_db
+
 app = Flask(__name__)
 
 @app.route("/")
