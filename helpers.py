@@ -76,5 +76,4 @@ def end_generation():
     reset_scores()
 
 def history():
-    # return list of tuples (generation number, params, scores)
-    raise NotImplementedError()
+    return Database.get_historical_individuals()
