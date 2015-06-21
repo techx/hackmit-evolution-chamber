@@ -1,6 +1,7 @@
 from flask import Markup
 from itertools import product
 import random
+import genetic
 
 # maps strings to dictionaries
 def domains():

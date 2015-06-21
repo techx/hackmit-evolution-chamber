@@ -3,7 +3,7 @@ import genetic
 from constants import *
 from database import Database
 import elo
-
+import random
 
 '''
 A series of...
@@ -57,7 +57,7 @@ def kill_unfit():
 
 def breed():
     alive_number = Constants.POPULATION_SIZE - Constants.KILL_SIZE
-    sorted_individuals = Database.get_all_individuals_sorted()[:alive_number]
+    sorted_individuals = [i['parameters'] for i in Database.get_all_individuals_sorted()[:alive_number]]
     for i in range(alive_number):
         pick1, pick2 = random.sample(sorted_individuals, 2)
         parameters = genetic.combine_and_mutate(pick1, pick2)
