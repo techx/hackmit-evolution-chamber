@@ -8,9 +8,7 @@ def combine_and_mutate(parent_a, parent_b):
 
 def random_individual_parameters():
     parameters = {}
-    print 'hi'
     domains = species.domains()
-    print 'hi'
     for param in domains:
         parameters[param] = random.choice(domains[param])
     return parameters
