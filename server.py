@@ -46,6 +46,8 @@ def history():
     # Show images in v2.
 
     history_of_gens = get_history()
+    for i in history_of_gens:
+        i['render'] = render_individual(i['parameters'])
 
     return render_template('history.html', history_of_gens=history_of_gens)
 

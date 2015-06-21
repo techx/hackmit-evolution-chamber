@@ -1,5 +1,6 @@
 from flask import Markup
 from itertools import product
+import random
 
 # maps strings to dictionaries
 def domains():
@@ -29,10 +30,40 @@ def domains():
     }
 
 def mutate(parameters):
-    return parameters
+    new = dict(**parameters)
+    if random.random() < 0.05:
+        new['palette_1'] = random.choice(xrange(256*256*256))
+    if random.random() < 0.05:
+        new['palette_2'] = random.choice(xrange(256*256*256))
+    if random.random() < 0.05:
+        new['palette_3'] = random.choice(xrange(256*256*256))
+    if random.random() < 0.05:
+        new['palette_4'] = random.choice(xrange(256*256*256))
+    if random.random() < 0.05:
+        new['palette_5'] = random.choice(xrange(256*256*256))
+    if random.random() < 0.02:
+        new['colors_limit'] = random.choice([3,4,5])
+    return new
 
 def combine(parent_a, parent_b):
-    return genetic.combine_random(parent_a, parent_b)
+    new = genetic.combine_random(parent_a, parent_b)
+    def average_rgb(color_1, color_2):
+        r1 = color_1 / 256**2
+        r2 = color_2 / 256**2
+        g1 = color_1 / 256 % 256
+        g2 = color_2 / 256 % 256
+        b1 = color_1 % 256
+        b2 = color_2 % 256
+        r = int(((r1 * r1 + r2 * r2)/2)**0.5)
+        g = int(((b1 * b1 + b2 * b2)/2)**0.5)
+        b = int(((g1 * g1 + g2 * g2)/2)**0.5)
+        return r * 256**2 + g * 256 + b
+    new['palette_1'] = average_rgb(parent_a['palette_1'], parent_b['palette_1'])
+    new['palette_2'] = average_rgb(parent_a['palette_2'], parent_b['palette_2'])
+    new['palette_3'] = average_rgb(parent_a['palette_3'], parent_b['palette_3'])
+    new['palette_4'] = average_rgb(parent_a['palette_4'], parent_b['palette_4'])
+    new['palette_5'] = average_rgb(parent_a['palette_5'], parent_b['palette_5'])
+    return new
 
 # returns Markup object
 def generate(parameters):
