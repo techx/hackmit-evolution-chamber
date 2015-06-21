@@ -14,19 +14,21 @@
   		text-transform: uppercase;
   	}
 
+    .container {
+      width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
   	#left {
   		float: left;
-  		width: 48%;
   		text-align: right;
-   		padding: 0px 10px;
 
   	}
 
   	#right {
   		float: right;
-  		width: 48%;
   		text-align: left;
-  		padding: 0px 10px;
   	}
 
   </style>
@@ -36,12 +38,13 @@
 <body>
     <div style="width: 100%; text-align: center;">
     	<h1>Evolution Chamber</h1>
-
-        <div id = "left">
-            {{ left }}
-        </div>
-        <div id = "right">
-            {{ right }}
+        <div class="container">
+          <div id = "left">
+              {{ left }}
+          </div>
+          <div id = "right">
+              {{ right }}
+          </div>
         </div>
     </div>
     <div style="clear:both;"></div>
