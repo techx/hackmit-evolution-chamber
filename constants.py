@@ -1,3 +1,5 @@
 class Constants:
-    generation_length = 50
     APP_NAME = "THIS_OR_THAT"
+    COMPARISONS_PER_GENERATION = 50
+    POPULATION_SIZE = 20
+    KILL_SIZE = 10
