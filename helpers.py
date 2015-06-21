@@ -1,8 +1,8 @@
-import species as species
+import species
 import genetic
 from constants import *
 from database import Database
-import elo as elo
+import elo
 
 
 '''
@@ -26,7 +26,7 @@ def populate_current_generation_if_empty():
         newIndividualParameters = genetic.random_individual_parameters()
         Database.add_individual_to_current_generation(newIndividualParameters)
 
-def render_individuals(parameters):
+def render_individual(parameters):
     return species.generate(parameters)
 
 def modify_scores(winner_id, loser_id):

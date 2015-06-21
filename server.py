@@ -11,9 +11,12 @@ def index():
     # Check table, populate if empty
     # Show two random individuals in the current gen
     populate_current_generation_if_empty()
-    species_to_compare = render_individuals(get_random_individuals())
+    a, b = Database.get_random_individuals(2)
+    ar = render_individual(a['parameters'])
+    br = render_individual(b['parameters'])
+    aid, bid = a['id'], b['id']
 
-    return render_template('index.html', species=species_to_compare)
+    return render_template('index.html', left_id=aid, left=ar, right_id=bid, right=br)
 
 @app.route('/', methods=['POST'])
 def decision():
