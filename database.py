@@ -88,7 +88,7 @@ class Database:
     @staticmethod
     def delete_individuals(individuals):
         cursor = get_db().cursor()
-        id_list = ", ".join(map(lambda x: x["id"], individuals))
+        id_list = ", ".join(map(lambda x: str(x["id"]), individuals))
         cursor.execute('DELETE FROM current WHERE id IN (%s)' % id_list)
         get_db().commit()
 
