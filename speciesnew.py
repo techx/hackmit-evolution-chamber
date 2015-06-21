@@ -27,7 +27,7 @@ def domains():
 def mutate(parameters):
     new = dict(**parameters)
     for param in parameters:
-        if random.random() < 0.02:
+        if random.random() < 0.05:
             new[param] += random.random() * canvasSize * 0.2 - 0.1 * canvasSize
     return new
 
