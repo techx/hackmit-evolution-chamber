@@ -17,8 +17,10 @@ def index():
     aid, bid = a['id'], b['id']
     prg = str(float(Database.num_comparisons()) / Constants.COMPARISONS_PER_GENERATION * 100)
     gen = len(Database.get_historical_individuals())
+    magic_color = Database.get_all_individuals_sorted()[0]['parameters']['palette_1']
+    magic_color = '#%06x' % magic_color
 
-    return render_template('index.html', left_id=aid, left=ar, right_id=bid, right=br, progress=prg, generation=gen)
+    return render_template('index.html', left_id=aid, left=ar, right_id=bid, right=br, progress=prg, generation=gen, magic_color=magic_color)
 
 @app.route('/', methods=['POST'])
 def decision():
