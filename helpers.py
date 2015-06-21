@@ -23,16 +23,8 @@ def populate_current_generation_if_empty():
         return
     print "Adding new random individuals to generation."
     for i in xrange(0, Constants.POPULATION_SIZE):
-        newIndividual = species.random_individual()
-        Database.add_individual_to_current_generation(newIndividual)
-
-def get_random_individuals(num=2):
-    # returns list of tuples (id, parameters)
-    randomIndividuals = Database.get_random_individuals(num)
-    returnList = []
-    for individual in randomIndividuals:
-        returnList.append((individual["id"], individual["parameters"]))
-    return returnList
+        newIndividualParameters = genetic.random_individual_parameters()
+        Database.add_individual_to_current_generation(newIndividualParameters)
 
 def render_individuals(parameters):
     return species.generate(parameters)
@@ -48,7 +40,7 @@ def modify_scores(winner_id, loser_id):
     # TODO need to incrememnt the number of comparisons in the database somewhere. I don't think it belongs in here.
 
 def end_of_generation():
-    ''' 
+    '''
     Returns bool whether it is the end of a generation
     '''
     return Database.num_comparisons() >= Constants.COMPARISONS_PER_GENERATION

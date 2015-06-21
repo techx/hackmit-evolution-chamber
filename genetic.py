@@ -6,7 +6,7 @@ def combine_and_mutate(parent_a, parent_b):
     assert is_valid(new)
     return new
 
-def random_individual():
+def random_individual_parameters():
     parameters = {}
     print 'hi'
     domains = species.domains()
