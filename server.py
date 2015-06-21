@@ -15,7 +15,7 @@ def index():
     ar = render_individual(a['parameters'])
     br = render_individual(b['parameters'])
     aid, bid = a['id'], b['id']
-    prg = str(float(Database.num_comparisons()) / Constants.COMPARISONS_PER_GENERATION)
+    prg = str(float(Database.num_comparisons()) / Constants.COMPARISONS_PER_GENERATION * 100)
     gen = len(Database.get_historical_individuals())
 
     return render_template('index.html', left_id=aid, left=ar, right_id=bid, right=br, progress=prg, generation=gen)
