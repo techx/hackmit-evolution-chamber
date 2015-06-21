@@ -30,7 +30,7 @@ def decision():
     form = request.form
     generation = int(request.form['generation'])
     if generation != len(Database.get_historical_individuals()):
-        return
+        return 'ignored'
     winner = request.form['winner'] # string
     loser = request.form['loser'] # string
     winner_id = 1 # TODO
@@ -39,7 +39,7 @@ def decision():
     modify_scores(winner_id, loser_id)
     end_generation()
 
-    #TODO: redirect to index
+    return 'ok'
 
 
 @app.route("/history")
