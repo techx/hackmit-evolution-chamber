@@ -51,9 +51,15 @@ def save_best_to_history():
     Databse.add_historical_individual(sorted_individuals[0])
 
 def kill_unfit():
+    # Delete individual for id for all unfit
+
     raise NotImplementedError()
 
 def breed():
+    sorted_individuals = Database.get_all_individuals_sorted()
+    for i in range(constants.POPULATION_SIZE - len(sorted_individuals)):
+        genetic.combine_and_mutate(random.choice(sorted_individuals), random.choice(sorted_individuals))
+
     raise NotImplementedError()
 
 def reset_scores():
