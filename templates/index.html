@@ -3,33 +3,41 @@
 <head>
   <title>THIS OR THAT?</title>
   <style>
-  	body {
-  		font-family: "Lato";
-  		font-size: 14pt;
-  	}
-
-  	h1 {
-  		font-family: "Montserrat";
-  		font-size: 36pt;
-  		text-transform: uppercase;
-  	}
-
-    .container {
-      width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+    body {
+      font-family: "Lato";
+      font-size: 14pt;
     }
 
-  	#left {
-  		float: left;
-  		text-align: right;
+    h1 {
+      font-family: "Montserrat";
+      font-size: 24pt;
+      text-transform: uppercase;
+    }
 
-  	}
+    @media (min-width: 600px) {
+        h1 {
+            font-size: 36px;
+        }
+    }
 
-  	#right {
-  		float: right;
-  		text-align: left;
-  	}
+    @media (min-width: 600px) {
+        .container {
+          width: 600px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .left {
+            float: left;
+            text-align: right;
+
+        }
+
+        .right {
+            float: right;
+            text-align: left;
+        }
+    }
 
     a {
         text-decoration: none;
@@ -62,12 +70,12 @@
     }
     </script>
     <div style="width: 100%; text-align: center;">
-    	<h1>Evolution Chamber</h1>
+      <h1>Evolution Chamber</h1>
         <div class="container">
-          <div id = "left" onclick="winLeft();">
+          <div class = "left" onclick="winLeft();">
             {{ left }}
           </div>
-          <div id = "right" onclick="winRight();">
+          <div class = "right" onclick="winRight();">
             {{ right }}
           </div>
         </div>
