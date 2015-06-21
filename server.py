@@ -31,8 +31,8 @@ def decision():
     generation = int(request.form['generation'])
     if generation != len(Database.get_historical_individuals()):
         return 'ignored'
-    winner = request.form['winner'] # string
-    loser = request.form['loser'] # string
+    winner_id = request.form['winner'] # string
+    loser_id = request.form['loser'] # string
 
     modify_scores(winner_id, loser_id)
     end_generation()
