@@ -1,6 +1,7 @@
 import sqlite3
 from flask import g, Flask
 from constants import Constants
+import json
 
 DATABASE = 'db/sqlite.db'
 
@@ -17,3 +18,55 @@ def close_connection(exception):
     db = getattr(g, '_database', None)
     if db is not None:
         db.close()
+
+def serialize_result_to_individual(res):
+    return {"id": res[0], "parameters":json.loads(res[1]), "elo": res[2]}
+
+class Database:
+
+    @staticmethod
+    def incr_comparisons():
+        cursor = get_db().cursor()
+        cursor.execute('UPDATE stats SET num_comparisons = %d WHERE 1 == 1' % (Stats.num() + 1))
+        get_db().commit()
+
+    @staticmethod
+    def reset_comparisons():
+        cursor = get_db().cursor()
+        cursor.execute('UPDATE stats SET num_comparisons = 0 WHERE 1 == 1')
+        get_db().commit()
+
+    @staticmethod
+    def num_comparisons():
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute('SELECT num_comparisons FROM stats;')
+        return cursor.fetchone()[0]
+
+    @staticmethod
+    def current_generation_is_empty():
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute('SELECT * FROM current')
+        return not cursor.fetchone()
+
+    @staticmethod
+    def add_individual_to_current_generation(parameters):
+        string = json.dumps(parameters)
+        cursor = get_db().cursor()
+        cursor.execute('INSERT INTO current (parameters, elo) VALUES (?, 1000.0)', (string,))
+        get_db().commit()
+
+    @staticmethod
+    def get_individual_for_id(idd):
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute('SELECT id, parameters, elo FROM current WHERE id = ?', (idd,))
+        return serialize_result_to_individual(cursor.fetchone())
+
+    @staticmethod
+    def update_elo_for_id(idd, elo):
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute('UPDATE current SET elo = ? WHERE id = ?', (elo, idd))
+        db.commit()

@@ -8,7 +8,7 @@ elo REAL NOT NULL
 
 CREATE TABLE stats
 (
-num_decisions INTEGER NOT NULL
+num_comparisons INTEGER NOT NULL
 );
 
 CREATE TABLE historial
@@ -18,5 +18,5 @@ parameters TEXT NOT NULL,
 elo REAL NOT NULL
 );
 
-INSERT INTO stats (num_decisions)
+INSERT INTO stats (num_comparisons)
 VALUES (0);
