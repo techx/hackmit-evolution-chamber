@@ -74,7 +74,7 @@ def end_generation():
     save_best_to_history()
     kill_unfit()
     breed()
-    reset_scores()
+    #reset_scores()
 
 def get_history():
     return Database.get_historical_individuals()
