@@ -7,7 +7,6 @@
 
 K_FACTOR = 50 # weighting factor. The larger the more significant a match
 # ^ in chess it's usually 15-16 for grandmasters and 32 for weak players
-BETA = 400
 
 class ResultType:
     WIN = 1

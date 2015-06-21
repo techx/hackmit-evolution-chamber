@@ -31,17 +31,17 @@ def domains():
 
 def mutate(parameters):
     new = dict(**parameters)
-    if random.random() < 0.05:
-        new['palette_1'] = random.choice(xrange(256*256*256))
-    if random.random() < 0.05:
-        new['palette_2'] = random.choice(xrange(256*256*256))
-    if random.random() < 0.05:
-        new['palette_3'] = random.choice(xrange(256*256*256))
-    if random.random() < 0.05:
-        new['palette_4'] = random.choice(xrange(256*256*256))
-    if random.random() < 0.05:
-        new['palette_5'] = random.choice(xrange(256*256*256))
     if random.random() < 0.02:
+        new['palette_1'] = random.choice(xrange(256*256*256))
+    if random.random() < 0.02:
+        new['palette_2'] = random.choice(xrange(256*256*256))
+    if random.random() < 0.02:
+        new['palette_3'] = random.choice(xrange(256*256*256))
+    if random.random() < 0.02:
+        new['palette_4'] = random.choice(xrange(256*256*256))
+    if random.random() < 0.02:
+        new['palette_5'] = random.choice(xrange(256*256*256))
+    if random.random() < 0.01:
         new['colors_limit'] = random.choice([3,4,5])
     return new
 
