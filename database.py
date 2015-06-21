@@ -1,9 +1,10 @@
 import sqlite3
 from flask import g, Flask
+from constants import Constants
 
 DATABASE = 'db/sqlite.db'
 
-app = Flask(__name__)
+app = Flask(Constants.APP_NAME)
 
 def get_db():
     db = getattr(g, '_database', None)
