@@ -1,4 +1,4 @@
-import species
+import speciesnew as species
 import random
 
 def combine_and_mutate(parent_a, parent_b):

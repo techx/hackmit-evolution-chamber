@@ -1,4 +1,4 @@
-import species
+import speciesnew as species
 import genetic
 from constants import *
 from database import Database
