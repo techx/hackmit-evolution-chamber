@@ -3,11 +3,8 @@ from flask import Markup
 def domains():
     return {}
 
-'''
-Returns a string
-'''
 def random_individual():
-    return "{}"
+    return {}
 
 def mutate(parameters):
     return parameters

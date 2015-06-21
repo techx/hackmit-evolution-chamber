@@ -2,6 +2,7 @@ import species as species
 import genetic
 from constants import *
 from database import Database
+import json
 
 def populate_current_generation_if_empty():
     if not Database.current_generation_is_empty():
@@ -9,7 +10,8 @@ def populate_current_generation_if_empty():
     print "Adding new random individuals to generation."
     for i in xrange(0, Constants.POPULATION_SIZE):
         newIndividual = species.random_individual()
-        Database.add_individual_to_current_generation(newIndividual)
+        newIndividualString = json.dumps(newIndividual)
+        Database.add_individual_to_current_generation(newIndividualString)
 
 def get_random_parameterss(num=2):
     # returns list of tuples (id, parameters)
