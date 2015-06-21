@@ -141,5 +141,6 @@ def generate(parameters):
       <rect height="100%" width="100%" fill="#ecf0f1"/>
       {}{}{}{}
     </svg>
-    '''.format(letter_h, letter_a, letter_c, letter_k, opacity=opacity)
+    '''.format(letter_h, letter_a, letter_c, letter_k)
+    logo = logo.format(opacity=opacity)
     return Markup(logo)
